@@ -1,0 +1,38 @@
+backend:
+  name: github
+  repo: YOUR-GITHUB-USERNAME/YOUR-REPO-NAME   # <- change this
+  branch: main
+  # Optional one-click GitHub login for non-technical editors (needs a small
+  # Cloudflare worker, see README). Leave commented out to sign in with a token.
+  # base_url: https://YOUR-WORKER.workers.dev
+
+site_url: https://YOUR-GITHUB-USERNAME.github.io/YOUR-REPO-NAME/   # <- change this
+media_folder: images/blog     # uploaded cover images are saved here
+public_folder: images/blog    # path stored in posts.json (relative to the blog page)
+
+collections:
+  - name: blog
+    label: Blog
+    files:
+      - name: posts
+        label: Blog articles
+        file: posts.json
+        format: json
+        fields:
+          - label: Articles
+            name: posts
+            widget: list
+            label_singular: article
+            summary: "{{fields.title}}"
+            fields:
+              - { label: Title, name: title, widget: string }
+              - label: Category
+                name: category
+                widget: select
+                options: ["General health", "Women's health", "Diabetes care", "Wellness"]
+              - { label: Summary, name: excerpt, widget: text, hint: "Shown on the blog card. One or two sentences." }
+              - { label: Cover image, name: image, widget: image, required: false, hint: "Landscape, at least 1200 x 750 px." }
+              - { label: Image description, name: image_alt, widget: string, required: false, hint: "Describe the image for screen readers." }
+              - { label: Publish date, name: date, widget: datetime, date_format: "YYYY-MM-DD", time_format: false, format: "YYYY-MM-DD" }
+              - { label: Published, name: published, widget: boolean, default: true, hint: "Untick to hide this article from the website." }
+              - { label: Article text, name: body, widget: markdown }

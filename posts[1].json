@@ -1,0 +1,24 @@
+{
+  "posts": [
+    {
+      "title": "Sample article: when to see a doctor",
+      "category": "General health",
+      "excerpt": "Replace this sample from the admin panel. This summary appears on the blog card and is cut off after three lines.",
+      "image": "",
+      "image_alt": "",
+      "date": "2026-09-18",
+      "published": true,
+      "body": "Replace this sample article from the admin panel."
+    },
+    {
+      "title": "Sample article: simple habits for better sleep",
+      "category": "Wellness",
+      "excerpt": "A second sample so you can see the grid. Delete both samples once you add real articles.",
+      "image": "",
+      "image_alt": "",
+      "date": "2026-09-10",
+      "published": true,
+      "body": "Replace this sample article from the admin panel."
+    }
+  ]
+}

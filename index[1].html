@@ -1,0 +1,160 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Health Blog & Articles | Medi Blues</title>
+<meta name="description" content="Health articles, medical tips and wellness guides from Medi Blues.">
+<style>
+  /* =====================================================================
+     BRAND TOKENS - replace with the exact Medi Blues website colours.
+     Everything on the page reads from these variables.
+     ===================================================================== */
+  :root {
+    --mb-primary:      #1b5fc1;  /* main brand colour (links, tags, hover) */
+    --mb-primary-dark: #134a9c;  /* darker shade of primary */
+    --mb-heading:      #0b2545;  /* headings */
+    --mb-text:         #23364d;  /* body text */
+    --mb-muted:        #5d7089;  /* secondary text */
+    --mb-tint:         #eaf2fc;  /* light background band, tag background */
+    --mb-line:         #d5e2f3;  /* borders */
+    --mb-accent:       #0f9d8a;  /* buttons */
+    --mb-accent-dark:  #0b7d6d;
+    --mb-radius: 14px;
+    --mb-max: 1160px;
+  }
+
+  *, *::before, *::after { box-sizing: border-box; }
+  body { margin: 0; font-family: system-ui, "Segoe UI", sans-serif; line-height: 1.6; }
+
+  .mb-blog { color: var(--mb-text); font-family: inherit; }
+  .mb-blog :focus-visible { outline: 3px solid var(--mb-accent); outline-offset: 3px; border-radius: 4px; }
+  .mb-wrap { width: min(100% - 2.5rem, var(--mb-max)); margin-inline: auto; }
+
+  .mb-hero { background: var(--mb-tint); border-bottom: 1px solid var(--mb-line); padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+  .mb-hero h1 { margin: 0 0 .75rem; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; color: var(--mb-heading); letter-spacing: -.02em; max-width: 18ch; }
+  .mb-hero p { margin: 0; max-width: 52ch; color: var(--mb-muted); font-size: 1.1rem; }
+
+  .mb-list { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+  .mb-grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(3, 1fr); }
+
+  .mb-card { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--mb-line);
+             border-radius: var(--mb-radius); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
+  .mb-card:hover, .mb-card:focus-within { border-color: var(--mb-primary); box-shadow: 0 10px 28px rgba(27, 95, 193, .12); }
+  .mb-media { aspect-ratio: 16 / 10; background: var(--mb-tint); overflow: hidden; }
+  .mb-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
+  .mb-ph { width: 100%; height: 100%; background: linear-gradient(135deg, var(--mb-primary), var(--mb-primary-dark)); }
+  .mb-body { display: flex; flex-direction: column; gap: .6rem; padding: 1.25rem 1.35rem 1.5rem; flex: 1; }
+  .mb-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-size: .85rem; color: var(--mb-muted); }
+  .mb-tag { font-weight: 600; color: var(--mb-primary-dark); background: var(--mb-tint); padding: .2rem .7rem; border-radius: 999px; }
+  .mb-card h2 { margin: 0; font-size: 1.2rem; line-height: 1.3; color: var(--mb-heading); }
+  .mb-card p { margin: 0; color: var(--mb-muted); font-size: .97rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
+  .mb-read { margin-top: auto; padding-top: .5rem; font-weight: 600; color: var(--mb-primary); text-decoration: none; }
+  .mb-read::after { content: ""; position: absolute; inset: 0; } /* whole card is clickable */
+  .mb-read:hover { text-decoration: underline; }
+
+  .mb-more { text-align: center; margin-top: 2.5rem; }
+  .mb-btn { display: inline-block; padding: .75rem 1.6rem; border: 0; border-radius: 999px; background: var(--mb-accent); color: #fff;
+            font: inherit; font-weight: 600; cursor: pointer; transition: background .15s; }
+  .mb-btn:hover { background: var(--mb-accent-dark); }
+  .mb-status { text-align: center; color: var(--mb-muted); padding: 3rem 0; }
+
+  .mb-skel { border-radius: var(--mb-radius); height: 340px; background: linear-gradient(90deg, var(--mb-tint), #f6faff, var(--mb-tint)); background-size: 200% 100%; animation: mb-shimmer 1.4s infinite linear; }
+  @keyframes mb-shimmer { to { background-position: -200% 0; } }
+
+  @media (max-width: 960px) { .mb-grid { grid-template-columns: repeat(2, 1fr); } }
+  @media (max-width: 600px) { .mb-grid { grid-template-columns: 1fr; } }
+  @media (prefers-reduced-motion: reduce) { .mb-skel { animation: none; } .mb-card, .mb-btn { transition: none; } }
+</style>
+</head>
+<body>
+
+<!-- Site header goes here if you include one -->
+
+<main class="mb-blog">
+  <section class="mb-hero">
+    <div class="mb-wrap">
+      <h1>Health articles and guides</h1>
+      <p>Practical advice, symptom explainers and wellness tips from the Medi Blues team.</p>
+    </div>
+  </section>
+
+  <section class="mb-list" aria-label="Articles">
+    <div class="mb-wrap">
+      <div class="mb-grid" id="mb-grid" aria-live="polite"></div>
+      <p class="mb-status" id="mb-status" hidden></p>
+      <div class="mb-more" id="mb-more" hidden>
+        <button class="mb-btn" id="mb-more-btn" type="button">Load more articles</button>
+      </div>
+    </div>
+  </section>
+</main>
+
+<!-- Site footer goes here if you include one -->
+
+<script>
+(() => {
+  /* ---------- Config ---------- */
+  const DATA_URL    = "posts.json";            // edited from /admin/ - do not edit by hand
+  const ARTICLE_URL = "article.html?post=";    // page that shows one article (not built yet)
+  const PAGE_SIZE   = 9;
+
+  const grid = document.getElementById("mb-grid");
+  const status = document.getElementById("mb-status");
+  const more = document.getElementById("mb-more");
+  const moreBtn = document.getElementById("mb-more-btn");
+  let posts = [], shown = 0;
+
+  const esc = s => String(s ?? "").replace(/[&<>"']/g, c => ({ "&": "&amp;", "<": "&lt;", ">": "&gt;", '"': "&quot;", "'": "&#39;" }[c]));
+  const slugify = s => String(s).toLowerCase().normalize("NFKD").replace(/[^\w\s-]/g, "").trim().replace(/[\s_]+/g, "-").replace(/-+/g, "-");
+  const fmtDate = v => { const d = new Date(v); return isNaN(d) ? "" : d.toLocaleDateString("en-IN", { day: "numeric", month: "short", year: "numeric" }); };
+
+  const card = p => `
+    <article class="mb-card">
+      <div class="mb-media">${p.image
+        ? `<img src="${esc(p.image)}" alt="${esc(p.image_alt || "")}" loading="lazy">`
+        : `<div class="mb-ph" aria-hidden="true"></div>`}</div>
+      <div class="mb-body">
+        <div class="mb-meta">
+          <span class="mb-tag">${esc(p.category)}</span>
+          <time datetime="${esc(p.date)}">${fmtDate(p.date)}</time>
+        </div>
+        <h2>${esc(p.title)}</h2>
+        <p>${esc(p.excerpt)}</p>
+        <a class="mb-read" href="${ARTICLE_URL}${encodeURIComponent(slugify(p.title))}" aria-label="Read article: ${esc(p.title)}">Read article</a>
+      </div>
+    </article>`;
+
+  function render() {
+    const next = posts.slice(shown, shown + PAGE_SIZE);
+    grid.insertAdjacentHTML("beforeend", next.map(card).join(""));
+    shown += next.length;
+    more.hidden = shown >= posts.length;
+  }
+
+  async function init() {
+    grid.innerHTML = '<div class="mb-skel"></div>'.repeat(6);
+    try {
+      const res = await fetch(DATA_URL, { cache: "no-cache" });
+      if (!res.ok) throw new Error(res.status);
+      const data = await res.json();
+      const now = Date.now();
+      posts = (data.posts || [])
+        .filter(p => p.published !== false && (!p.date || new Date(p.date) <= now))
+        .sort((a, b) => new Date(b.date) - new Date(a.date));
+      grid.innerHTML = "";
+      if (!posts.length) { status.textContent = "No articles yet. Please check back soon."; status.hidden = false; return; }
+      render();
+    } catch (e) {
+      grid.innerHTML = "";
+      status.textContent = "We couldn't load the articles right now. Please refresh the page or try again shortly.";
+      status.hidden = false;
+    }
+  }
+
+  moreBtn.addEventListener("click", render);
+  init();
+})();
+</script>
+</body>
+</html>
