@@ -1,0 +1,828 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="utf-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+
+<title>Medi Blues Blog Admin</title>
+
+<style>
+:root {
+  --primary: #1b5fc1;
+  --primary-dark: #134a9c;
+  --heading: #0b2545;
+  --text: #23364d;
+  --muted: #5d7089;
+  --tint: #eaf2fc;
+  --line: #d5e2f3;
+  --danger: #c0392b;
+  --success: #18864b;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+body {
+  margin: 0;
+  font-family: system-ui, "Segoe UI", sans-serif;
+  background: #f5f8fc;
+  color: var(--text);
+}
+
+header {
+  background: var(--heading);
+  color: white;
+  padding: 1.2rem 2rem;
+}
+
+header h1 {
+  margin: 0;
+  font-size: 1.4rem;
+}
+
+header p {
+  margin: .25rem 0 0;
+  opacity: .8;
+}
+
+.container {
+  width: min(100% - 2rem, 1100px);
+  margin: 2rem auto;
+}
+
+.panel {
+  background: white;
+  border: 1px solid var(--line);
+  border-radius: 14px;
+  padding: 1.5rem;
+  margin-bottom: 1.5rem;
+}
+
+h2 {
+  color: var(--heading);
+  margin-top: 0;
+}
+
+label {
+  display: block;
+  font-weight: 600;
+  margin-bottom: .35rem;
+}
+
+input,
+textarea,
+select {
+  width: 100%;
+  padding: .75rem;
+  border: 1px solid #cbd7e6;
+  border-radius: 8px;
+  font: inherit;
+  margin-bottom: 1rem;
+}
+
+textarea {
+  min-height: 220px;
+  resize: vertical;
+}
+
+button {
+  border: 0;
+  border-radius: 8px;
+  padding: .7rem 1.1rem;
+  font: inherit;
+  font-weight: 600;
+  cursor: pointer;
+}
+
+.primary {
+  background: var(--primary);
+  color: white;
+}
+
+.primary:hover {
+  background: var(--primary-dark);
+}
+
+.secondary {
+  background: var(--tint);
+  color: var(--primary-dark);
+}
+
+.danger {
+  background: #fdecea;
+  color: var(--danger);
+}
+
+.success {
+  background: #e9f7ef;
+  color: var(--success);
+}
+
+.article-row {
+  display: flex;
+  justify-content: space-between;
+  gap: 1rem;
+  align-items: center;
+  padding: 1rem 0;
+  border-bottom: 1px solid var(--line);
+}
+
+.article-row:last-child {
+  border-bottom: 0;
+}
+
+.article-title {
+  font-weight: 700;
+  color: var(--heading);
+}
+
+.article-meta {
+  font-size: .9rem;
+  color: var(--muted);
+}
+
+.actions {
+  display: flex;
+  gap: .5rem;
+  flex-shrink: 0;
+}
+
+.status {
+  padding: .8rem;
+  border-radius: 8px;
+  margin-bottom: 1rem;
+  display: none;
+}
+
+.status.show {
+  display: block;
+}
+
+.status.ok {
+  background: #e9f7ef;
+  color: var(--success);
+}
+
+.status.error {
+  background: #fdecea;
+  color: var(--danger);
+}
+
+.hidden {
+  display: none;
+}
+
+.token-note {
+  color: var(--muted);
+  font-size: .9rem;
+  line-height: 1.5;
+}
+
+.grid {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  gap: 1rem;
+}
+
+.checkbox {
+  display: flex;
+  align-items: center;
+  gap: .5rem;
+  margin-bottom: 1rem;
+}
+
+.checkbox input {
+  width: auto;
+  margin: 0;
+}
+
+@media (max-width: 700px) {
+  .grid {
+    grid-template-columns: 1fr;
+  }
+
+  .article-row {
+    flex-direction: column;
+    align-items: flex-start;
+  }
+
+  .actions {
+    width: 100%;
+  }
+}
+</style>
+</head>
+
+<body>
+
+<header>
+  <h1>Medi Blues Blog Admin</h1>
+  <p>Manage articles for the Medi Blues blog</p>
+</header>
+
+<div class="container">
+
+  <!-- GitHub connection -->
+  <section class="panel">
+
+    <h2>GitHub connection</h2>
+
+    <p class="token-note">
+      Your GitHub token is used only in this browser session.
+      It is not saved by this page.
+      Never share your token with anyone.
+    </p>
+
+    <label for="token">GitHub Fine-grained Token</label>
+
+    <input
+      id="token"
+      type="password"
+      autocomplete="off"
+      placeholder="Paste your GitHub token here">
+
+    <button class="primary" id="connect">
+      Connect to GitHub
+    </button>
+
+  </section>
+
+  <div id="status" class="status"></div>
+
+  <!-- Article list -->
+
+  <section class="panel hidden" id="articles-panel">
+
+    <h2>Articles</h2>
+
+    <button class="primary" id="newArticle">
+      + New article
+    </button>
+
+    <div id="articleList"></div>
+
+  </section>
+
+  <!-- Editor -->
+
+  <section class="panel hidden" id="editor-panel">
+
+    <h2 id="editorTitle">New article</h2>
+
+    <input type="hidden" id="editIndex">
+
+    <label for="title">Title</label>
+    <input
+      id="title"
+      type="text"
+      placeholder="Example: When should you see a doctor?">
+
+    <div class="grid">
+
+      <div>
+        <label for="category">Category</label>
+        <input
+          id="category"
+          type="text"
+          placeholder="General health">
+      </div>
+
+      <div>
+        <label for="date">Publication date</label>
+        <input
+          id="date"
+          type="date">
+      </div>
+
+    </div>
+
+    <label for="excerpt">Short description</label>
+
+    <textarea
+      id="excerpt"
+      style="min-height:120px"
+      placeholder="Short summary shown on the blog card"></textarea>
+
+    <label for="image">Image URL</label>
+
+    <input
+      id="image"
+      type="url"
+      placeholder="https://example.com/image.jpg">
+
+    <label for="imageAlt">Image alt text</label>
+
+    <input
+      id="imageAlt"
+      type="text"
+      placeholder="Doctor consulting with patient">
+
+    <label for="body">Article content</label>
+
+    <textarea
+      id="body"
+      placeholder="Write the article here..."></textarea>
+
+    <label class="checkbox">
+      <input
+        id="published"
+        type="checkbox"
+        checked>
+      Publish this article
+    </label>
+
+    <div style="display:flex;gap:.75rem;flex-wrap:wrap">
+
+      <button class="primary" id="saveArticle">
+        Save article
+      </button>
+
+      <button class="secondary" id="cancelEdit">
+        Cancel
+      </button>
+
+    </div>
+
+  </section>
+
+</div>
+
+<script>
+
+(() => {
+
+  const OWNER = "restNRender1011";
+  const REPO = "mediblues-blog";
+  const BRANCH = "main";
+  const FILE = "posts.json";
+
+  let token = "";
+  let posts = [];
+  let fileSha = "";
+
+  const $ = id => document.getElementById(id);
+
+  const status = $("status");
+
+  function showStatus(message, type = "ok") {
+
+    status.textContent = message;
+    status.className = "status show " + type;
+
+  }
+
+  function apiHeaders() {
+
+    return {
+      "Accept": "application/vnd.github+json",
+      "Authorization": `Bearer ${token}`,
+      "X-GitHub-Api-Version": "2026-03-10",
+      "Content-Type": "application/json"
+    };
+
+  }
+
+  async function loadPosts() {
+
+    showStatus("Loading articles...");
+
+    const url =
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}?ref=${BRANCH}`;
+
+    const response = await fetch(url, {
+      headers: apiHeaders()
+    });
+
+    if (!response.ok) {
+
+      const error = await response.text();
+
+      throw new Error(
+        `GitHub returned ${response.status}: ${error}`
+      );
+
+    }
+
+    const data = await response.json();
+
+    fileSha = data.sha;
+
+    const decoded = atob(
+      data.content.replace(/\n/g, "")
+    );
+
+    const json = decodeURIComponent(
+      Array.from(decoded)
+        .map(c =>
+          "%" + c.charCodeAt(0).toString(16).padStart(2, "0")
+        )
+        .join("")
+    );
+
+    const parsed = JSON.parse(json);
+
+    posts = Array.isArray(parsed.posts)
+      ? parsed.posts
+      : [];
+
+    renderArticles();
+
+    $("articles-panel").classList.remove("hidden");
+
+    showStatus(
+      `Connected. ${posts.length} article(s) loaded.`
+    );
+
+  }
+
+  function renderArticles() {
+
+    const list = $("articleList");
+
+    list.innerHTML = "";
+
+    if (!posts.length) {
+
+      list.innerHTML =
+        "<p>No articles yet.</p>";
+
+      return;
+    }
+
+    posts.forEach((post, index) => {
+
+      const row = document.createElement("div");
+
+      row.className = "article-row";
+
+      row.innerHTML = `
+        <div>
+          <div class="article-title">
+            ${escapeHtml(post.title || "Untitled")}
+          </div>
+
+          <div class="article-meta">
+            ${escapeHtml(post.category || "")}
+            ·
+            ${escapeHtml(post.date || "")}
+            ·
+            ${post.published === false ? "Draft" : "Published"}
+          </div>
+        </div>
+
+        <div class="actions">
+
+          <button
+            class="secondary"
+            data-edit="${index}">
+            Edit
+          </button>
+
+          <button
+            class="danger"
+            data-delete="${index}">
+            Delete
+          </button>
+
+        </div>
+      `;
+
+      list.appendChild(row);
+
+    });
+
+    list.querySelectorAll("[data-edit]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        editArticle(
+          Number(button.dataset.edit)
+        );
+
+      });
+
+    });
+
+    list.querySelectorAll("[data-delete]").forEach(button => {
+
+      button.addEventListener("click", () => {
+
+        deleteArticle(
+          Number(button.dataset.delete)
+        );
+
+      });
+
+    });
+
+  }
+
+  function editArticle(index) {
+
+    const post = posts[index];
+
+    $("editIndex").value = index;
+
+    $("editorTitle").textContent =
+      "Edit article";
+
+    $("title").value =
+      post.title || "";
+
+    $("category").value =
+      post.category || "";
+
+    $("date").value =
+      post.date || "";
+
+    $("excerpt").value =
+      post.excerpt || "";
+
+    $("image").value =
+      post.image || "";
+
+    $("imageAlt").value =
+      post.image_alt || "";
+
+    $("body").value =
+      post.body || "";
+
+    $("published").checked =
+      post.published !== false;
+
+    $("editor-panel").classList.remove("hidden");
+
+    window.scrollTo({
+      top: $("editor-panel").offsetTop - 20,
+      behavior: "smooth"
+    });
+
+  }
+
+  function newArticle() {
+
+    $("editIndex").value = "";
+
+    $("editorTitle").textContent =
+      "New article";
+
+    $("title").value = "";
+    $("category").value = "";
+    $("date").value =
+      new Date().toISOString().slice(0, 10);
+    $("excerpt").value = "";
+    $("image").value = "";
+    $("imageAlt").value = "";
+    $("body").value = "";
+    $("published").checked = true;
+
+    $("editor-panel").classList.remove("hidden");
+
+    window.scrollTo({
+      top: $("editor-panel").offsetTop - 20,
+      behavior: "smooth"
+    });
+
+  }
+
+  function deleteArticle(index) {
+
+    const post = posts[index];
+
+    if (!confirm(
+      `Delete "${post.title}"?`
+    )) {
+
+      return;
+
+    }
+
+    posts.splice(index, 1);
+
+    renderArticles();
+
+    savePosts(
+      "Delete blog article"
+    );
+
+  }
+
+  async function saveArticle() {
+
+    const title =
+      $("title").value.trim();
+
+    if (!title) {
+
+      showStatus(
+        "Please enter an article title.",
+        "error"
+      );
+
+      return;
+
+    }
+
+    const post = {
+
+      title,
+
+      category:
+        $("category").value.trim(),
+
+      excerpt:
+        $("excerpt").value.trim(),
+
+      image:
+        $("image").value.trim(),
+
+      image_alt:
+        $("imageAlt").value.trim(),
+
+      date:
+        $("date").value,
+
+      published:
+        $("published").checked,
+
+      body:
+        $("body").value.trim()
+
+    };
+
+    const index =
+      $("editIndex").value;
+
+    if (index === "") {
+
+      posts.push(post);
+
+    } else {
+
+      posts[Number(index)] = post;
+
+    }
+
+    renderArticles();
+
+    await savePosts(
+      index === ""
+        ? "Add blog article"
+        : "Update blog article"
+    );
+
+  }
+
+  async function savePosts(commitMessage) {
+
+    showStatus(
+      "Saving to GitHub..."
+    );
+
+    const content = JSON.stringify(
+      { posts },
+      null,
+      2
+    );
+
+    const bytes =
+      new TextEncoder().encode(content);
+
+    let binary = "";
+
+    bytes.forEach(byte => {
+      binary += String.fromCharCode(byte);
+    });
+
+    const base64 =
+      btoa(binary);
+
+    const url =
+      `https://api.github.com/repos/${OWNER}/${REPO}/contents/${FILE}`;
+
+    const response = await fetch(url, {
+
+      method: "PUT",
+
+      headers: apiHeaders(),
+
+      body: JSON.stringify({
+
+        message: commitMessage,
+
+        content: base64,
+
+        sha: fileSha,
+
+        branch: BRANCH
+
+      })
+
+    });
+
+    if (!response.ok) {
+
+      const error =
+        await response.text();
+
+      showStatus(
+        `Save failed: ${error}`,
+        "error"
+      );
+
+      return;
+
+    }
+
+    const result =
+      await response.json();
+
+    fileSha =
+      result.content.sha;
+
+    $("editor-panel").classList.add("hidden");
+
+    showStatus(
+      "Saved successfully. GitHub Pages will redeploy shortly."
+    );
+
+  }
+
+  function escapeHtml(value) {
+
+    return String(value ?? "")
+      .replace(/[&<>"']/g, char => ({
+
+        "&": "&amp;",
+        "<": "&lt;",
+        ">": "&gt;",
+        '"': "&quot;",
+        "'": "&#39;"
+
+      }[char]));
+
+  }
+
+  $("connect").addEventListener(
+    "click",
+    async () => {
+
+      token =
+        $("token").value.trim();
+
+      if (!token) {
+
+        showStatus(
+          "Please enter your GitHub token.",
+          "error"
+        );
+
+        return;
+
+      }
+
+      try {
+
+        await loadPosts();
+
+      } catch (error) {
+
+        console.error(error);
+
+        showStatus(
+          error.message,
+          "error"
+        );
+
+      }
+
+    }
+  );
+
+  $("newArticle").addEventListener(
+    "click",
+    newArticle
+  );
+
+  $("saveArticle").addEventListener(
+    "click",
+    saveArticle
+  );
+
+  $("cancelEdit").addEventListener(
+    "click",
+    () => {
+
+      $("editor-panel")
+        .classList.add("hidden");
+
+    }
+  );
+
+})();
+
+</script>
+
+</body>
+</html>
