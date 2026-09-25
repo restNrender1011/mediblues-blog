@@ -11,15 +11,15 @@
      Everything on the page reads from these variables.
      ===================================================================== */
   :root {
-    --mb-primary:      #1b5fc1;  /* main brand colour (links, tags, hover) */
-    --mb-primary-dark: #134a9c;  /* darker shade of primary */
-    --mb-heading:      #0b2545;  /* headings */
-    --mb-text:         #23364d;  /* body text */
-    --mb-muted:        #5d7089;  /* secondary text */
-    --mb-tint:         #eaf2fc;  /* light background band, tag background */
-    --mb-line:         #d5e2f3;  /* borders */
-    --mb-accent:       #0f9d8a;  /* buttons */
-    --mb-accent-dark:  #0b7d6d;
+    --mb-primary:      #2563eb;  /* main brand colour (links, tags, hover) */
+    --mb-primary-dark: #1d4ed8;  /* darker shade of primary */
+    --mb-heading:      #12233f;  /* headings */
+    --mb-text:         #334155;  /* body text */
+    --mb-muted:        #64748b;  /* secondary text */
+    --mb-tint:         #eefbfc;  /* light background band, tag background */
+    --mb-line:         #d7eaf0;  /* borders */
+    --mb-accent:       #10b981;  /* buttons */
+    --mb-accent-dark:  #0f8f70;
     --mb-radius: 14px;
     --mb-max: 1160px;
   }
@@ -31,22 +31,22 @@
   .mb-blog :focus-visible { outline: 3px solid var(--mb-accent); outline-offset: 3px; border-radius: 4px; }
   .mb-wrap { width: min(100% - 2.5rem, var(--mb-max)); margin-inline: auto; }
 
-  .mb-hero { background: var(--mb-tint); border-bottom: 1px solid var(--mb-line); padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
-  .mb-hero h1 { margin: 0 0 .75rem; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; color: var(--mb-heading); letter-spacing: -.02em; max-width: 18ch; }
-  .mb-hero p { margin: 0; max-width: 52ch; color: var(--mb-muted); font-size: 1.1rem; }
+  .mb-hero { background: linear-gradient(135deg, #2563eb 0%, #2185d0 48%, #0fae98 100%); border-bottom: 1px solid var(--mb-line); padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
+  .mb-hero h1 { margin: 0 0 .75rem; font-size: clamp(2rem, 5vw, 3.25rem); line-height: 1.1; color: #fff; letter-spacing: -.02em; max-width: 18ch; }
+  .mb-hero p { margin: 0; max-width: 52ch; color: rgba(255,255,255,.92); font-size: 1.1rem; }
 
   .mb-list { padding: clamp(2.5rem, 6vw, 4.5rem) 0; }
   .mb-grid { display: grid; gap: 1.75rem; grid-template-columns: repeat(3, 1fr); }
 
   .mb-card { position: relative; display: flex; flex-direction: column; background: #fff; border: 1px solid var(--mb-line);
              border-radius: var(--mb-radius); overflow: hidden; transition: border-color .15s, box-shadow .15s; }
-  .mb-card:hover, .mb-card:focus-within { border-color: var(--mb-primary); box-shadow: 0 10px 28px rgba(27, 95, 193, .12); }
+  .mb-card:hover, .mb-card:focus-within { border-color: var(--mb-primary); box-shadow: 0 10px 28px rgba(37, 99, 235, .14); }
   .mb-media { aspect-ratio: 16 / 10; background: var(--mb-tint); overflow: hidden; }
   .mb-media img { width: 100%; height: 100%; object-fit: cover; display: block; }
   .mb-ph { width: 100%; height: 100%; background: linear-gradient(135deg, var(--mb-primary), var(--mb-primary-dark)); }
   .mb-body { display: flex; flex-direction: column; gap: .6rem; padding: 1.25rem 1.35rem 1.5rem; flex: 1; }
   .mb-meta { display: flex; flex-wrap: wrap; align-items: center; gap: .6rem; font-size: .85rem; color: var(--mb-muted); }
-  .mb-tag { font-weight: 600; color: var(--mb-primary-dark); background: var(--mb-tint); padding: .2rem .7rem; border-radius: 999px; }
+  .mb-tag { font-weight: 600; color: #0b6f68; background: #e5faf6; padding: .2rem .7rem; border-radius: 999px; }
   .mb-card h2 { margin: 0; font-size: 1.2rem; line-height: 1.3; color: var(--mb-heading); }
   .mb-card p { margin: 0; color: var(--mb-muted); font-size: .97rem; display: -webkit-box; -webkit-line-clamp: 3; -webkit-box-orient: vertical; overflow: hidden; }
   .mb-read { margin-top: auto; padding-top: .5rem; font-weight: 600; color: var(--mb-primary); text-decoration: none; }
