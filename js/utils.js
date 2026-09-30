@@ -74,4 +74,36 @@
   global.MediBlues = global.MediBlues || {};
   global.MediBlues.utils = MediBluesUtils;
 
+  // Header Translucent Scroll Animation Controller
+  if (typeof window !== 'undefined' && typeof document !== 'undefined') {
+    function initHeaderScroll() {
+      const header = document.querySelector('.mb-header');
+      if (!header) return;
+
+      let ticking = false;
+
+      function onScroll() {
+        const isScrolled = window.scrollY > 15;
+        header.classList.toggle('scrolled', isScrolled);
+        ticking = false;
+      }
+
+      window.addEventListener('scroll', () => {
+        if (!ticking) {
+          window.requestAnimationFrame(onScroll);
+          ticking = true;
+        }
+      }, { passive: true });
+
+      // Run on initial page load
+      onScroll();
+    }
+
+    if (document.readyState === 'loading') {
+      document.addEventListener('DOMContentLoaded', initHeaderScroll);
+    } else {
+      initHeaderScroll();
+    }
+  }
+
 })(typeof window !== 'undefined' ? window : this);
