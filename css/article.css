@@ -1,0 +1,317 @@
+/**
+ * Medi Blues Blog - Single Article Page Styles (Mayo Clinic Reading Experience)
+ */
+
+/* Article Hero Header */
+.article-hero,
+.hero {
+  background: linear-gradient(180deg, #f1f7fc 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--mb-line);
+  padding: 3rem 0 3.5rem;
+}
+
+.back {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.4rem;
+  margin-bottom: 1.5rem;
+  color: var(--mb-primary);
+  text-decoration: none;
+  font-weight: 700;
+  font-size: 0.9rem;
+  transition: transform 0.15s ease, color 0.15s ease;
+}
+
+.back:hover {
+  text-decoration: underline;
+  transform: translateX(-3px);
+}
+
+.category {
+  display: inline-block;
+  padding: 0.28rem 0.65rem;
+  background: #eafaf1;
+  color: #15803d;
+  font-weight: 800;
+  font-size: 0.78rem;
+  text-transform: uppercase;
+  letter-spacing: 0.05em;
+  border-radius: 4px;
+}
+
+.article-hero h1,
+.hero h1 {
+  margin: 1rem 0 0.8rem;
+  color: var(--mb-heading);
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.2;
+  letter-spacing: -0.03em;
+  max-width: 22ch;
+  font-weight: 800;
+}
+
+.article-byline {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 1.25rem;
+  margin-top: 1rem;
+  font-size: 0.9rem;
+  color: var(--mb-muted);
+}
+
+.article-byline .medical-review {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #15803d;
+  font-weight: 700;
+  background: #eafaf1;
+  padding: 0.2rem 0.6rem;
+  border-radius: 4px;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+}
+
+.date {
+  color: var(--mb-muted);
+  font-size: 0.9rem;
+}
+
+/* Article Body Container (Mayo Clinic Split Layout) */
+.article {
+  padding: 3rem 0 5rem;
+}
+
+.article-layout {
+  display: grid;
+  grid-template-columns: 1fr 320px;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.article-main {
+  min-width: 0;
+}
+
+.article-image {
+  width: 100%;
+  max-height: 520px;
+  object-fit: cover;
+  margin: 0 0 2.5rem;
+  border-radius: 10px;
+  border: 1px solid var(--mb-line);
+  box-shadow: 0 4px 20px rgba(18, 35, 63, 0.06);
+}
+
+.placeholder {
+  height: 360px;
+  background: linear-gradient(135deg, var(--mb-primary), var(--mb-accent));
+  margin-bottom: 2.5rem;
+  border-radius: 10px;
+}
+
+.content {
+  font-size: 1.1rem;
+  line-height: 1.85;
+  color: #2b3648;
+}
+
+.content p {
+  margin: 0 0 1.5rem;
+}
+
+.content h2,
+.content h3 {
+  color: var(--mb-heading);
+  line-height: 1.3;
+  margin: 2.5rem 0 1rem;
+  font-weight: 800;
+}
+
+.content h2 {
+  font-size: 1.65rem;
+  border-bottom: 2px solid #e2e8f0;
+  padding-bottom: 0.5rem;
+}
+
+.content h3 {
+  font-size: 1.3rem;
+}
+
+.content ul,
+.content ol {
+  margin: 0 0 1.6rem;
+  padding-left: 1.6rem;
+}
+
+.content li {
+  margin-bottom: 0.6rem;
+}
+
+/* Mayo Clinic Clinical Callout Note */
+.article-note {
+  margin-top: 3rem;
+  padding: 1.4rem 1.6rem;
+  border-left: 4px solid var(--mb-accent);
+  background: #f0fdf4;
+  border-radius: 0 8px 8px 0;
+  color: #1e3a47;
+  font-size: 0.95rem;
+  line-height: 1.6;
+}
+
+.article-note strong {
+  color: var(--mb-heading);
+  display: block;
+  margin-bottom: 0.35rem;
+  font-size: 1rem;
+}
+
+/* Sidebar in Article */
+.article-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+  position: sticky;
+  top: 100px;
+}
+
+.article-side-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  padding: 1.6rem;
+  box-shadow: 0 4px 16px rgba(18, 35, 63, 0.04);
+}
+
+.article-side-card.article-side-cta,
+.article-side-cta {
+  background: linear-gradient(145deg, #101822 0%, #1a273a 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 28px rgba(16, 24, 34, 0.28);
+}
+
+.article-side-card.article-side-cta .mb-side-badge {
+  display: inline-block;
+  background: rgba(46, 204, 113, 0.22);
+  border: 1px solid rgba(46, 204, 113, 0.5);
+  color: #34d399;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.9rem;
+}
+
+.article-side-card.article-side-cta h3,
+.article-side-cta h3 {
+  color: #ffffff !important;
+  margin: 0 0 0.85rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.article-side-card.article-side-cta p,
+.article-side-cta p {
+  color: #e2e8f0 !important;
+  font-size: 0.95rem;
+  margin: 0 0 1.4rem;
+  line-height: 1.6;
+}
+
+.article-side-card.article-side-cta .article-side-btn,
+.article-side-btn {
+  background: var(--mb-primary);
+  color: #ffffff !important;
+  border: none;
+  display: block;
+  text-align: center;
+  text-decoration: none;
+  border-radius: 8px;
+  padding: 0.85rem 1.2rem;
+  font-weight: 700;
+  font-size: 0.98rem;
+  box-shadow: 0 4px 14px rgba(19, 109, 236, 0.38);
+  transition: all 0.18s ease;
+}
+
+.article-side-card.article-side-cta .article-side-btn:hover,
+.article-side-btn:hover {
+  background: var(--mb-primary-dark);
+  box-shadow: 0 6px 20px rgba(19, 109, 236, 0.48);
+  transform: translateY(-1px);
+}
+
+.article-side-card.article-side-cta .mb-call-prompt {
+  margin-top: 1.15rem;
+  font-size: 0.86rem;
+  color: #94a3b8 !important;
+  text-align: center;
+}
+
+.article-side-card.article-side-cta .mb-call-prompt strong {
+  color: #ffffff !important;
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 800;
+  margin-top: 0.3rem;
+  letter-spacing: 0.02em;
+}
+
+.article-side-card.article-side-cta .mb-call-phone {
+  color: #ffffff !important;
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.15s ease;
+}
+
+.article-side-card.article-side-cta .mb-call-phone:hover {
+  color: #93c5fd !important;
+  text-decoration: underline;
+}
+
+.article-side-card:not(.article-side-cta) h4 {
+  margin: 0 0 0.8rem;
+  color: var(--mb-heading);
+  font-size: 1.05rem;
+}
+
+.article-side-card:not(.article-side-cta) p {
+  margin: 0 0 1rem;
+  font-size: 0.9rem;
+  color: var(--mb-muted);
+  line-height: 1.5;
+}
+
+.article-side-back {
+  margin: 0;
+}
+
+/* Responsive adjustments */
+@media (max-width: 950px) {
+  .article-layout {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .article-sidebar {
+    position: static;
+  }
+}
+
+@media (max-width: 600px) {
+  .article-hero,
+  .hero {
+    padding: 2.2rem 0 2.8rem;
+  }
+  .article {
+    padding: 2rem 0 3.5rem;
+  }
+  .content {
+    font-size: 1.02rem;
+    line-height: 1.75;
+  }
+}

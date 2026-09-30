@@ -1,0 +1,793 @@
+/**
+ * Medi Blues Blog - Mayo Clinic Inspired Healthcare Layout
+ */
+
+.mb-blog {
+  min-height: 100vh;
+  background: #ffffff;
+}
+
+/* ==========================================================================
+   Mayo Clinic Style Hero & Clinical Search
+   ========================================================================== */
+
+.mb-mayo-hero {
+  background: linear-gradient(180deg, #f1f7fc 0%, #ffffff 100%);
+  border-bottom: 1px solid var(--mb-line);
+  padding: clamp(3rem, 5vw, 4.5rem) 0 2.5rem;
+}
+
+.mb-hero-content {
+  max-width: 860px;
+}
+
+.mb-kicker {
+  display: inline-block;
+  color: var(--mb-primary);
+  font-weight: 800;
+  font-size: 0.8rem;
+  letter-spacing: 0.12em;
+  text-transform: uppercase;
+  margin-bottom: 0.8rem;
+}
+
+.mb-mayo-hero h1 {
+  margin: 0 0 0.85rem;
+  font-size: clamp(2.2rem, 4.5vw, 3.4rem);
+  line-height: 1.15;
+  color: var(--mb-heading);
+  letter-spacing: -0.03em;
+  font-weight: 800;
+}
+
+.mb-mayo-hero p {
+  margin: 0 0 2rem;
+  color: #475569;
+  font-size: 1.12rem;
+  line-height: 1.6;
+  max-width: 68ch;
+}
+
+/* ==========================================================================
+   Mayo Clinic A-Z Directory & Pill Search (Diseases & Conditions Style)
+   ========================================================================== */
+
+.mb-az-section {
+  background: #ffffff;
+  border-bottom: 1px solid var(--mb-line);
+  padding: 2.5rem 0 3rem;
+}
+
+.mb-az-grid {
+  display: grid;
+  grid-template-columns: 1.15fr 0.85fr;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+/* Left Column: A-Z Letters */
+.mb-az-left h2,
+.mb-az-left h3 {
+  font-family: Georgia, Cambria, "Times New Roman", Times, serif;
+  font-size: 1.85rem;
+  color: var(--mb-heading);
+  margin: 0 0 1.35rem;
+  font-weight: 700;
+  letter-spacing: -0.02em;
+}
+
+.mb-az-letters {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 0.5rem;
+  max-width: 580px;
+}
+
+.mb-letter-btn {
+  width: 38px;
+  height: 38px;
+  border-radius: 50%;
+  border: 1.5px solid rgba(19, 109, 236, 0.35);
+  background: #ffffff;
+  color: var(--mb-primary);
+  font-family: inherit;
+  font-size: 0.95rem;
+  font-weight: 700;
+  display: inline-flex;
+  align-items: center;
+  justify-content: center;
+  cursor: pointer;
+  transition: all 0.16s ease;
+  user-select: none;
+  padding: 0;
+  line-height: 1;
+}
+
+.mb-letter-btn:hover {
+  background: var(--mb-primary-light);
+  border-color: var(--mb-primary);
+  color: var(--mb-primary-dark);
+  transform: translateY(-1px);
+}
+
+.mb-letter-btn.active {
+  background: var(--mb-primary);
+  border-color: var(--mb-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(19, 109, 236, 0.28);
+  transform: scale(1.06);
+}
+
+.mb-letter-btn.has-articles {
+  font-weight: 800;
+  border-color: rgba(19, 109, 236, 0.6);
+}
+
+.mb-letter-btn.no-articles {
+  opacity: 0.45;
+  border-color: var(--mb-line);
+  color: var(--mb-muted);
+}
+
+/* Right Column: Search Diseases & Conditions */
+.mb-az-right h2,
+.mb-az-right h3 {
+  font-family: system-ui, -apple-system, BlinkMacSystemFont, "Segoe UI", Roboto, sans-serif;
+  font-size: 1.15rem;
+  color: var(--mb-heading);
+  margin: 0 0 1rem;
+  font-weight: 700;
+}
+
+.mb-az-search-wrap {
+  position: relative;
+  display: flex;
+  align-items: center;
+  width: 100%;
+}
+
+.mb-az-search-icon {
+  position: absolute;
+  left: 1.25rem;
+  color: #475569;
+  pointer-events: none;
+  width: 19px;
+  height: 19px;
+}
+
+.mb-az-search-input {
+  width: 100%;
+  height: 52px;
+  padding: 0 2.8rem 0 3.2rem;
+  border: 1.5px solid #475569;
+  border-radius: 9999px;
+  font-size: 1.05rem;
+  font-family: inherit;
+  color: var(--mb-heading);
+  background: #ffffff;
+  transition: border-color 0.18s ease, box-shadow 0.18s ease;
+}
+
+.mb-az-search-input:focus {
+  outline: none;
+  border-color: var(--mb-primary);
+  box-shadow: 0 0 0 4px rgba(19, 109, 236, 0.12);
+}
+
+.mb-az-search-clear {
+  position: absolute;
+  right: 1.2rem;
+  background: none;
+  border: none;
+  font-size: 1.4rem;
+  color: #94a3b8;
+  cursor: pointer;
+  padding: 0.2rem 0.5rem;
+  line-height: 1;
+}
+
+.mb-az-search-clear:hover {
+  color: var(--mb-heading);
+}
+
+/* Active Filter Pill Badge */
+.mb-filter-status {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  margin-top: 0.85rem;
+  font-size: 0.88rem;
+  color: var(--mb-muted);
+}
+
+.mb-filter-reset-btn {
+  background: #f1f5f9;
+  border: 1px solid #cbd5e1;
+  border-radius: 20px;
+  padding: 0.2rem 0.75rem;
+  font-size: 0.8rem;
+  font-weight: 600;
+  color: var(--mb-primary);
+  cursor: pointer;
+}
+
+.mb-filter-reset-btn:hover {
+  background: #e2e8f0;
+}
+
+/* ==========================================================================
+   Category Filter Navigation (Mayo Clinic Topic Pills)
+   ========================================================================== */
+
+.mb-filter-bar {
+  background: #ffffff;
+  border-bottom: 1px solid var(--mb-line);
+  position: sticky;
+  top: 76px;
+  z-index: 15;
+}
+
+.mb-categories {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  overflow-x: auto;
+  padding: 0.85rem 0;
+  scrollbar-width: none;
+}
+
+.mb-categories::-webkit-scrollbar {
+  display: none;
+}
+
+.mb-cat-pill {
+  white-space: nowrap;
+  padding: 0.5rem 1.15rem;
+  border-radius: 999px;
+  font-size: 0.88rem;
+  font-weight: 600;
+  border: 1px solid #cbd5e1;
+  background: #fff;
+  color: #334155;
+  cursor: pointer;
+  transition: all 0.18s ease;
+}
+
+.mb-cat-pill:hover {
+  border-color: var(--mb-primary);
+  color: var(--mb-primary);
+  background: #f8fafc;
+}
+
+.mb-cat-pill.active {
+  background: var(--mb-primary);
+  border-color: var(--mb-primary);
+  color: #ffffff;
+  box-shadow: 0 4px 12px rgba(19, 109, 236, 0.22);
+}
+
+/* ==========================================================================
+   Mayo Clinic Main Layout (Split Grid: Content + Sidebar)
+   ========================================================================== */
+
+.mb-mayo-main {
+  padding: 3rem 0 5rem;
+}
+
+.mb-layout-split {
+  display: grid;
+  grid-template-columns: 1fr 340px;
+  gap: 3.5rem;
+  align-items: start;
+}
+
+.mb-primary-col {
+  min-width: 0;
+}
+
+/* Results & Section Heading */
+.mb-results-bar {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  margin-bottom: 1.8rem;
+  padding-bottom: 0.8rem;
+  border-bottom: 2px solid #e2e8f0;
+}
+
+.mb-results-bar h2 {
+  margin: 0;
+  font-size: 1.5rem;
+  color: var(--mb-heading);
+  font-weight: 800;
+}
+
+.mb-count-badge {
+  font-size: 0.84rem;
+  color: var(--mb-muted);
+  font-weight: 600;
+}
+
+/* ==========================================================================
+   Mayo Clinic Featured Spotlight Card (Lead Story)
+   ========================================================================== */
+
+.mb-featured-card {
+  position: relative;
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  background: #ffffff;
+  border: 1px solid #cbd5e1;
+  border-radius: 12px;
+  overflow: hidden;
+  margin-bottom: 2.5rem;
+  box-shadow: 0 10px 30px rgba(18, 35, 63, 0.07);
+  transition: transform 0.2s ease, box-shadow 0.2s ease;
+}
+
+.mb-featured-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 16px 40px rgba(18, 35, 63, 0.12);
+  border-color: #94a3b8;
+}
+
+.mb-featured-media {
+  background: #eef7fa;
+  min-height: 280px;
+  position: relative;
+  overflow: hidden;
+}
+
+.mb-featured-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mb-featured-body {
+  padding: 2.2rem;
+  display: flex;
+  flex-direction: column;
+}
+
+.mb-spotlight-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--mb-primary);
+  font-weight: 800;
+  font-size: 0.75rem;
+  letter-spacing: 0.08em;
+  text-transform: uppercase;
+  margin-bottom: 0.75rem;
+}
+
+.mb-featured-body h3 {
+  margin: 0 0 1rem;
+  font-size: 1.6rem;
+  line-height: 1.25;
+  color: var(--mb-heading);
+  font-weight: 800;
+}
+
+.mb-featured-body p {
+  margin: 0 0 1.5rem;
+  color: #475569;
+  font-size: 1.02rem;
+  line-height: 1.6;
+}
+
+.mb-review-tag {
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: #15803d;
+  font-weight: 700;
+  font-size: 0.78rem;
+  margin-top: auto;
+  padding-top: 0.8rem;
+}
+
+/* ==========================================================================
+   Mayo Clinic Multi-Column Articles Grid
+   ========================================================================== */
+
+.mb-mayo-grid {
+  display: grid;
+  grid-template-columns: repeat(2, 1fr);
+  gap: 1.8rem;
+}
+
+.mb-card {
+  position: relative;
+  display: flex;
+  flex-direction: column;
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 10px;
+  overflow: hidden;
+  transition: transform 0.18s ease, box-shadow 0.18s ease, border-color 0.18s ease;
+}
+
+.mb-card:hover {
+  transform: translateY(-3px);
+  border-color: #94a3b8;
+  box-shadow: 0 12px 28px rgba(18, 35, 63, 0.08);
+}
+
+.mb-media {
+  aspect-ratio: 16/9;
+  background: #f1f7fa;
+  overflow: hidden;
+}
+
+.mb-media img {
+  width: 100%;
+  height: 100%;
+  object-fit: cover;
+  display: block;
+}
+
+.mb-ph {
+  width: 100%;
+  height: 100%;
+  background: linear-gradient(135deg, var(--mb-primary), var(--mb-accent));
+}
+
+.mb-body {
+  padding: 1.4rem;
+  display: flex;
+  flex-direction: column;
+  flex: 1;
+}
+
+.mb-meta {
+  display: flex;
+  align-items: center;
+  flex-wrap: wrap;
+  gap: 0.6rem;
+  margin-bottom: 0.75rem;
+  font-size: 0.8rem;
+  color: var(--mb-muted);
+}
+
+.mb-tag {
+  font-weight: 800;
+  color: #15803d;
+  background: #eafaf1;
+  padding: 0.25rem 0.6rem;
+  border-radius: 4px;
+}
+
+.mb-card h3 {
+  margin: 0 0 0.65rem;
+  font-size: 1.2rem;
+  line-height: 1.35;
+  color: var(--mb-heading);
+  font-weight: 700;
+}
+
+.mb-card p {
+  margin: 0 0 1.25rem;
+  color: #475569;
+  font-size: 0.94rem;
+  line-height: 1.55;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  line-clamp: 3;
+  -webkit-box-orient: vertical;
+  overflow: hidden;
+}
+
+.mb-read-link {
+  margin-top: auto;
+  display: inline-flex;
+  align-items: center;
+  gap: 0.35rem;
+  color: var(--mb-primary);
+  font-weight: 700;
+  font-size: 0.92rem;
+  text-decoration: none;
+}
+
+.mb-read-link::after {
+  content: "";
+  position: absolute;
+  inset: 0;
+}
+
+.mb-read-link:hover {
+  text-decoration: underline;
+}
+
+/* Pagination */
+.mb-more {
+  text-align: center;
+  margin-top: 3rem;
+}
+
+/* ==========================================================================
+   Mayo Clinic Clinical Sidebar
+   ========================================================================== */
+
+.mb-sidebar {
+  display: flex;
+  flex-direction: column;
+  gap: 1.75rem;
+}
+
+.mb-side-card {
+  background: #ffffff;
+  border: 1px solid #e2e8f0;
+  border-radius: 12px;
+  padding: 1.6rem;
+  box-shadow: 0 4px 16px rgba(18, 35, 63, 0.04);
+}
+
+.mb-side-card.mb-side-cta,
+.mb-side-cta {
+  background: linear-gradient(145deg, #101822 0%, #1a273a 100%);
+  color: #ffffff;
+  border: 1px solid rgba(255, 255, 255, 0.12);
+  box-shadow: 0 10px 28px rgba(16, 24, 34, 0.28);
+}
+
+.mb-side-card.mb-side-cta .mb-side-badge,
+.mb-side-badge {
+  display: inline-block;
+  background: rgba(46, 204, 113, 0.22);
+  border: 1px solid rgba(46, 204, 113, 0.5);
+  color: #34d399;
+  font-size: 0.74rem;
+  font-weight: 800;
+  text-transform: uppercase;
+  letter-spacing: 0.12em;
+  padding: 0.3rem 0.75rem;
+  border-radius: 4px;
+  margin-bottom: 0.9rem;
+}
+
+.mb-side-card.mb-side-cta h3,
+.mb-side-cta h3 {
+  color: #ffffff !important;
+  margin: 0 0 0.85rem;
+  font-size: 1.35rem;
+  font-weight: 800;
+  line-height: 1.3;
+}
+
+.mb-side-card.mb-side-cta p,
+.mb-side-cta p {
+  color: #e2e8f0 !important;
+  font-size: 0.95rem;
+  margin: 0 0 1.4rem;
+  line-height: 1.6;
+}
+
+.mb-side-card.mb-side-cta .mb-side-btn,
+.mb-side-btn {
+  display: block;
+  text-align: center;
+  background: var(--mb-primary);
+  color: #ffffff !important;
+  padding: 0.85rem 1.3rem;
+  border-radius: 8px;
+  font-weight: 700;
+  font-size: 0.98rem;
+  text-decoration: none;
+  box-shadow: 0 4px 14px rgba(19, 109, 236, 0.38);
+  transition: all 0.18s ease;
+}
+
+.mb-side-card.mb-side-cta .mb-side-btn:hover,
+.mb-side-btn:hover {
+  background: var(--mb-primary-dark);
+  box-shadow: 0 6px 20px rgba(19, 109, 236, 0.48);
+  transform: translateY(-1px);
+}
+
+.mb-side-card.mb-side-cta .mb-call-prompt,
+.mb-call-prompt {
+  margin-top: 1.15rem;
+  font-size: 0.86rem;
+  color: #94a3b8 !important;
+  text-align: center;
+}
+
+.mb-side-card.mb-side-cta .mb-call-prompt strong,
+.mb-call-prompt strong {
+  color: #ffffff !important;
+  display: block;
+  font-size: 1.02rem;
+  font-weight: 800;
+  margin-top: 0.3rem;
+  letter-spacing: 0.02em;
+}
+
+.mb-side-card.mb-side-cta .mb-call-phone,
+.mb-call-phone {
+  color: #ffffff !important;
+  text-decoration: none;
+  display: inline-block;
+  transition: color 0.15s ease;
+}
+
+.mb-side-card.mb-side-cta .mb-call-phone:hover,
+.mb-call-phone:hover {
+  color: #93c5fd !important;
+  text-decoration: underline;
+}
+
+.mb-side-card:not(.mb-side-cta) h3 {
+  margin: 0 0 1rem;
+  font-size: 1.12rem;
+  color: var(--mb-heading);
+  font-weight: 800;
+}
+
+.mb-side-links {
+  list-style: none;
+  margin: 0;
+  padding: 0;
+}
+
+.mb-side-links li {
+  border-bottom: 1px solid #f1f5f9;
+}
+
+.mb-side-links li:last-child {
+  border-bottom: none;
+}
+
+.mb-side-links a {
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  padding: 0.7rem 0;
+  color: #334155;
+  text-decoration: none;
+  font-size: 0.92rem;
+  font-weight: 600;
+  transition: color 0.15s ease;
+}
+
+.mb-side-links a:hover {
+  color: var(--mb-primary);
+}
+
+.mb-side-trust p {
+  font-size: 0.88rem;
+  color: #64748b;
+  margin: 0 0 1rem;
+  line-height: 1.55;
+}
+
+.mb-trust-seal {
+  display: flex;
+  align-items: center;
+  gap: 0.6rem;
+  background: #eafaf1;
+  border: 1px solid rgba(46, 204, 113, 0.3);
+  padding: 0.75rem 0.9rem;
+  border-radius: 6px;
+  color: #15803d;
+  font-weight: 700;
+  font-size: 0.85rem;
+}
+
+/* ==========================================================================
+   Mayo Clinic 3-Pillar Clinical Trust Section
+   ========================================================================== */
+
+.mb-trust-section {
+  background: #f8fafc;
+  border-top: 1px solid var(--mb-line);
+  border-bottom: 1px solid var(--mb-line);
+  padding: 3.5rem 0;
+}
+
+.mb-trust-section-head {
+  text-align: center;
+  max-width: 650px;
+  margin: 0 auto 2.5rem;
+}
+
+.mb-trust-section-head h2 {
+  margin: 0 0 0.5rem;
+  font-size: 1.6rem;
+  color: var(--mb-heading);
+  font-weight: 800;
+}
+
+.mb-trust-section-head p {
+  margin: 0;
+  color: #64748b;
+  font-size: 0.98rem;
+}
+
+.mb-trust-pillars {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 2.5rem;
+}
+
+.mb-pillar {
+  padding: 1rem 0;
+}
+
+.mb-pillar-icon {
+  width: 44px;
+  height: 44px;
+  border-radius: 8px;
+  background: var(--mb-primary-light);
+  color: var(--mb-primary);
+  display: grid;
+  place-items: center;
+  margin-bottom: 1rem;
+}
+
+.mb-pillar strong {
+  display: block;
+  font-size: 1.1rem;
+  color: var(--mb-heading);
+  margin-bottom: 0.4rem;
+}
+
+.mb-pillar p {
+  margin: 0;
+  font-size: 0.92rem;
+  color: #64748b;
+  line-height: 1.55;
+}
+
+/* ==========================================================================
+   Responsive Breakpoints
+   ========================================================================== */
+
+@media (max-width: 1024px) {
+  .mb-layout-split {
+    grid-template-columns: 1fr;
+    gap: 3rem;
+  }
+  .mb-sidebar {
+    display: grid;
+    grid-template-columns: repeat(2, 1fr);
+  }
+}
+
+@media (max-width: 900px) {
+  .mb-az-grid {
+    grid-template-columns: 1fr;
+    gap: 2.2rem;
+  }
+}
+
+@media (max-width: 768px) {
+  .mb-featured-card {
+    grid-template-columns: 1fr;
+  }
+  .mb-mayo-grid {
+    grid-template-columns: 1fr;
+  }
+  .mb-sidebar {
+    grid-template-columns: 1fr;
+  }
+  .mb-trust-pillars {
+    grid-template-columns: 1fr;
+    gap: 1.5rem;
+  }
+}
+
+@media (max-width: 650px) {
+  .mb-search-container {
+    padding: 1rem;
+  }
+  .mb-search-input-wrap input {
+    font-size: 0.95rem;
+    padding-left: 2.8rem;
+  }
+  .mb-featured-body {
+    padding: 1.4rem;
+  }
+}

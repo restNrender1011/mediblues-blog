@@ -3,11 +3,27 @@
 A static blog page hosted from a git repo (GitHub Pages). Articles are added from an admin page at `/admin/`; each save is a commit to this repo, and the site updates about a minute later.
 
 ```
-index.html          blog page (reads posts.json)
-posts.json          all articles (edited from the admin page)
-admin/index.html    admin panel (Sveltia CMS)
-admin/config.yml    admin fields and repo settings
-images/blog/        uploaded cover images
+index.html             Clean blog landing page HTML
+article.html           Clean single-article reader HTML
+posts.json             All articles data (edited from the admin page)
+
+css/
+├── main.css           Design tokens, CSS variables, typography, reset, header & footer
+├── blog.css           Blog list page styles, hero, card grid, shimmer skeleton
+└── article.css        Article reader page styles, article hero, typography, callouts
+
+js/
+├── utils.js           Helper utilities (escapeHtml, slugify, formatDate, truncateText)
+├── api.js             Dedicated blog data API client (fetching, caching, slug queries)
+├── blog.js            Blog listing view controller (rendering, pagination)
+└── article.js         Article reader view controller (URL params, article rendering)
+
+admin/
+├── index.html         Clean CMS admin interface HTML
+├── css/admin.css      Admin dashboard layout, forms, buttons, and alert styles
+└── js/
+    ├── github-api.js  GitHub REST API client (auth, file read/write, base64 Unicode handling)
+    └── admin.js       Admin UI controller (form handling, editor state, article management)
 ```
 
 ## Set up
@@ -36,4 +52,4 @@ New categories: add them to the `options` list in `admin/config.yml`.
 - The blog cards link to `article.html?post=<title-slug>`. The single-article page is not built yet; the full text is already stored in `posts.json` under `body`.
 - Free GitHub Pages needs a public repo, so articles and images are public (they are on the website anyway).
 - To serve this at `mediblues.com/blog` the main site has to route that path here; a subdomain such as `blog.mediblues.com` works with a GitHub Pages custom domain.
-- Colours live in the `:root` block at the top of `index.html`.
+- Brand design tokens and color grading from https://www.mediblues.com/ are defined in `:root` in `css/main.css`.
